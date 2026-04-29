@@ -1,0 +1,13 @@
+{
+  "name": "trackr-simulator",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "GPS simulator for Trackr — sends fake location data via Socket.io",
+  "scripts": {
+    "start": "node simulator.js"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.6.1",
+    "trackr": "file:.."
+  }
+}

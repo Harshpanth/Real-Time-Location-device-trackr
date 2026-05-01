@@ -4,7 +4,8 @@ let socket = null;
 
 export const connectSocket = (token) => {
   if (socket?.connected) return socket;
-  socket = io('/', {
+  const socketUrl = import.meta.env.VITE_BACKEND_URL || '/';
+  socket = io(socketUrl, {
     auth: { token },
     transports: ['websocket'],
     reconnectionAttempts: 10,

@@ -1,10 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { motion } from 'framer-motion';
 import { Activity, Navigation2, CheckCircle2, XCircle, AlertCircle, MapPin, Signal } from 'lucide-react';
 
 export default function DriverApp() {
-  const [deviceKey, setDeviceKey] = useState(localStorage.getItem('trackr_driver_key') || '');
+  const [searchParams] = useSearchParams();
+  const queryKey = searchParams.get('key');
+  
+  const [deviceKey, setDeviceKey] = useState(queryKey || localStorage.getItem('trackr_driver_key') || '');
+
+  useEffect(() => {
+    if (queryKey) {
+      localStorage.setItem('trackr_driver_key', queryKey);
+    }
+  }, [queryKey]);
   const [isTracking, setIsTracking] = useState(false);
   const [status, setStatus] = useState('offline'); // offline, connecting, online, error
   const [errorMsg, setErrorMsg] = useState('');

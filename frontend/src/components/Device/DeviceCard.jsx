@@ -35,6 +35,21 @@ export default function DeviceCard({ device, onSelect, onDelete, selected }) {
           </div>
 
           <p className="text-xs text-slate-500 mt-0.5 font-mono">{device.model || 'Generic Device'}</p>
+          
+          <div className="flex items-center gap-2 mt-1.5">
+            <span className="text-[10px] text-slate-400 font-mono bg-surface-700/50 px-1.5 py-0.5 rounded border border-surface-600">
+              Key: {device.deviceKey}
+            </span>
+            <a 
+              href={`/driver?key=${device.deviceKey}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-[10px] text-brand-400 hover:text-brand-300 hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Open Driver App ↗
+            </a>
+          </div>
 
           <div className="flex items-center gap-3 mt-2">
             {device.lastLocation ? (

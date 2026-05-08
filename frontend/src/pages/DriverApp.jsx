@@ -45,9 +45,9 @@ export default function DriverApp() {
     setStatus('connecting');
     setErrorMsg('');
 
-    // Connect to Socket.IO backend with Device Key (matching simulator logic)
-    // Connecting to "/" means it uses the Vite proxy or same-origin in production
-    socketRef.current = io('/', {
+    // Connect to Socket.IO backend with Device Key
+    const socketUrl = import.meta.env.VITE_BACKEND_URL || '/';
+    socketRef.current = io(socketUrl, {
       auth: { deviceKey: deviceKey },
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 10,

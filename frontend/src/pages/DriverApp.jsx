@@ -7,7 +7,7 @@ import { Activity, Navigation2, CheckCircle2, XCircle, AlertCircle, MapPin, Sign
 export default function DriverApp() {
   const [searchParams] = useSearchParams();
   const queryKey = searchParams.get('key');
-  
+
   const [deviceKey, setDeviceKey] = useState(queryKey || localStorage.getItem('trackr_driver_key') || '');
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function DriverApp() {
   const [isTracking, setIsTracking] = useState(false);
   const [status, setStatus] = useState('offline'); // offline, connecting, online, error
   const [errorMsg, setErrorMsg] = useState('');
-  
+
   const [stats, setStats] = useState({ lat: 0, lng: 0, speed: 0, accuracy: 0 });
   const [sessionData, setSessionData] = useState({ updates: 0, startTime: null });
 
@@ -35,7 +35,7 @@ export default function DriverApp() {
       setErrorMsg('Please enter a valid Device Key');
       return;
     }
-    
+
     if (!navigator.geolocation) {
       setErrorMsg('Geolocation is not supported by your browser');
       return;
@@ -56,12 +56,12 @@ export default function DriverApp() {
     socketRef.current.on('connect', () => {
       setStatus('online');
       setSessionData({ updates: 0, startTime: new Date() });
-      
+
       // Start GPS Watch
       watchIdRef.current = navigator.geolocation.watchPosition(
         (position) => {
           const { latitude, longitude, speed, accuracy, heading, altitude } = position.coords;
-          
+
           setStats({ lat: latitude, lng: longitude, speed, accuracy });
           setSessionData(prev => ({ ...prev, updates: prev.updates + 1 }));
 
@@ -96,7 +96,7 @@ export default function DriverApp() {
 
     socketRef.current.on('disconnect', () => {
       if (status === 'online') {
-         setStatus('offline');
+        setStatus('offline');
       }
     });
 
@@ -123,7 +123,7 @@ export default function DriverApp() {
       <div className={`absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-20 pointer-events-none transition-colors duration-1000 ${status === 'online' ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900 via-gray-950 to-gray-950' : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-gray-950 to-gray-950'}`}></div>
 
       <div className="flex-1 w-full max-w-md mx-auto p-6 flex flex-col items-center justify-center relative z-10 space-y-8">
-        
+
         {/* Header */}
         <div className="text-center w-full">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 mb-2">Driver Tracker</h1>
@@ -131,12 +131,11 @@ export default function DriverApp() {
         </div>
 
         {/* Status Indicator */}
-        <div className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-full border ${
-          status === 'online' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
+        <div className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-full border ${status === 'online' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
           status === 'connecting' ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' :
-          status === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-400' :
-          'bg-gray-800/50 border-gray-700 text-gray-500'
-        }`}>
+            status === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-400' :
+              'bg-gray-800/50 border-gray-700 text-gray-500'
+          }`}>
           {status === 'online' && <CheckCircle2 className="w-5 h-5 animate-pulse" />}
           {status === 'connecting' && <Activity className="w-5 h-5 animate-spin" />}
           {status === 'error' && <XCircle className="w-5 h-5" />}
@@ -214,7 +213,7 @@ export default function DriverApp() {
                   <span>Current Pos</span>
                 </div>
                 <div className="text-sm text-gray-300 font-mono">
-                  {stats.lat ? stats.lat.toFixed(6) : 'Searching...'},<br/>
+                  {stats.lat ? stats.lat.toFixed(6) : 'Searching...'},<br />
                   {stats.lng ? stats.lng.toFixed(6) : ''}
                 </div>
               </div>

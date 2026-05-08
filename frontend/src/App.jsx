@@ -10,6 +10,7 @@ import Alerts from './pages/Alerts.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import DriverApp from './pages/DriverApp.jsx';
+import DevicesPage from './pages/DevicesPage.jsx';
 
 function AppLayout() {
   return <Sidebar />;
@@ -38,6 +39,7 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/devices" element={<DevicesPage />} />
             <Route path="/tracking" element={<Tracking />} />
             <Route path="/history" element={<History />} />
             <Route path="/geofences" element={<Geofences />} />

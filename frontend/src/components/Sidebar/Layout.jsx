@@ -1,6 +1,6 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, MapPin, History, Shield, LogOut, Radio, Bell } from 'lucide-react';
+import { LayoutDashboard, MapPin, History, Shield, LogOut, Radio, Bell, Smartphone } from 'lucide-react';
 import { useAuthStore } from '../../store/auth.store';
 import { useAlertStore } from '../../store/alert.store';
 import { useSocket } from '../../hooks/useSocket';
@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/devices', icon: Smartphone, label: 'Devices' },
   { to: '/tracking', icon: MapPin, label: 'Live Tracking' },
   { to: '/history', icon: History, label: 'History' },
   { to: '/geofences', icon: Shield, label: 'Geofences' },
@@ -91,14 +92,17 @@ export default function Layout() {
             </h1>
             <p className="text-xs text-slate-500">Real-time device monitoring</p>
           </div>
-          <div className="relative w-9 h-9 rounded-lg bg-surface-700 flex items-center justify-center">
+          <button 
+            onClick={() => navigate('/alerts')}
+            className="relative w-9 h-9 rounded-lg bg-surface-700 hover:bg-surface-600 transition-colors flex items-center justify-center cursor-pointer"
+          >
             <Bell size={16} className="text-slate-400" />
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[10px] flex items-center justify-center font-medium">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
-          </div>
+          </button>
         </header>
 
         <main className="flex-1 overflow-auto">

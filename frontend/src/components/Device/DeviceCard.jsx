@@ -37,7 +37,7 @@ export default function DeviceCard({ device, onSelect, onDelete, selected }) {
           <p className="text-xs text-slate-500 mt-0.5 font-mono">{device.model || 'Generic Device'}</p>
 
           <div className="flex items-center gap-2 mt-1.5">
-            <span className="text-[10px] text-slate-400 font-mono bg-surface-700/50 px-1.5 py-0.5 rounded border border-surface-600">
+            <span className="text-[10px] text-slate-400 font-mono bg-surface-700/50 px-1.5 py-0.5 rounded border border-surface-600 truncate max-w-full block">
               Key: {device.deviceKey}
             </span>
             <a

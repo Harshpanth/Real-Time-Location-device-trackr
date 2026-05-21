@@ -28,6 +28,22 @@ export default function Login() {
     }
   };
 
+  const handleDemoLogin = async () => {
+    setLoading(true); setError('');
+    const demoCredentials = { email: 'admin@trackr.dev', password: 'password123' };
+    setForm(demoCredentials);
+    try {
+      const res = await api.post('/auth/login', demoCredentials);
+      const { user, accessToken } = res.data.data;
+      setAuth(user, accessToken);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Demo login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-surface-950 flex items-center justify-center p-4">
       {/* Background grid */}
@@ -92,6 +108,17 @@ export default function Login() {
             <button type="submit" disabled={loading}
               className="w-full py-2.5 px-4 bg-brand-500 hover:bg-brand-600 disabled:opacity-60 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
               {loading ? <><Loader2 size={15} className="animate-spin" /> Signing in...</> : 'Sign In'}
+            </button>
+
+            <div className="relative flex py-1 items-center">
+              <div className="flex-grow border-t border-surface-700"></div>
+              <span className="flex-shrink mx-4 text-slate-500 text-xs uppercase tracking-wider">or</span>
+              <div className="flex-grow border-t border-surface-700"></div>
+            </div>
+
+            <button type="button" onClick={handleDemoLogin} disabled={loading}
+              className="w-full py-2.5 px-4 bg-surface-800 hover:bg-surface-700 border border-surface-700 hover:border-surface-600 disabled:opacity-60 text-slate-200 text-sm font-medium rounded-lg transition-all flex items-center justify-center gap-2">
+              {loading ? <><Loader2 size={15} className="animate-spin" /> Logging in...</> : 'Try Demo / Guest Login'}
             </button>
           </form>
 

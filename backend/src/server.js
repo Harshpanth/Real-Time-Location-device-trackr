@@ -6,6 +6,7 @@ import connectDB from './config/db.js';
 import { connectRedis } from './config/redis.js';
 import { registerSocketHandlers } from './sockets/location.socket.js';
 import { startHeartbeatWorker } from './sockets/heartbeat.worker.js';
+import { seedDatabase } from './config/seed.js';
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,6 +23,7 @@ const io = new Server(httpServer, {
 
 const start = async () => {
   await connectDB();
+  await seedDatabase();
 
   // Redis is fully optional — connectRedis never throws
   const redis = connectRedis();

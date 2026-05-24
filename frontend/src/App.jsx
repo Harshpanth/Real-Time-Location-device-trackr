@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { useAuthStore } from './store/auth.store.js';
 import Sidebar from "./components/Sidebar/Layout.jsx";
 import Dashboard from './pages/Dashboard.jsx';
@@ -48,6 +49,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
